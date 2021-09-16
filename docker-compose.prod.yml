@@ -10,10 +10,22 @@ services:
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
+    ports:
+      - 27017:27017
+
+
   server:
+    # build: .
     image: mikebarkmin/baby-tracker:1.9.0
     environment:
       DATABASE_URL: mongodb://server:test@mongo:27017/baby-tracker
 
     ports:
       - 8080:8080
+
+  # grafana: 
+  #   image:  grafana/grafana
+  #   environment:
+  #     GF_INSTALL_PLUGINS: grafana-mongodb-datasource
+  #   ports:
+  #     - 3000:3000

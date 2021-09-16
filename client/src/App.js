@@ -7,6 +7,7 @@ import HookedRouter from './components/HookedRouter';
 import Navigation from './components/Navigation';
 import DashboardPage from './pages/DashboardPage';
 import NursingPage from './pages/NursingPage';
+import ExpressingPage from './pages/ExpressingPage';
 import DiaperPage from './pages/DiaperPage';
 import SleepPage from './pages/SleepPage';
 import FoodPage from './pages/FoodPage';
@@ -24,6 +25,7 @@ import DarkToggle from './components/DarkToggle';
 
 import dashboardIcon from './icons/dashboard.svg';
 import nursingIcon from './icons/nursing.svg';
+import expressingIcon from './icons/food.svg';
 import diaperIcon from './icons/diaper.svg';
 import sleepIcon from './icons/sleep.svg';
 import foodIcon from './icons/food.svg';
@@ -42,6 +44,11 @@ const links = [
     name: t`Nursing`,
     url: '/nursing',
     icon: nursingIcon,
+  },
+  {
+    name: t`Expressing`,
+    url: '/expressing',
+    icon: expressingIcon,
   },
   {
     name: t`Diaper`,
@@ -134,6 +141,7 @@ function App() {
                     <Switch>
                       <Route exact path="/" component={DashboardPage} />
                       <Route exact path="/nursing" component={NursingPage} />
+                      <Route exact path="/expressing" component={ExpressingPage} />
                       <Route exact path="/diaper" component={DiaperPage} />
                       <Route exact path="/sleep" component={SleepPage} />
                       <Route exact path="/food" component={FoodPage} />

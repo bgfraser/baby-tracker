@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
   modules.diaper.handler(socket);
   modules.food.handler(socket);
   modules.nursing.handler(socket);
+  modules.expressing.handler(socket);
   modules.sleep.handler(socket);
   modules.measurement.handler(socket);
 

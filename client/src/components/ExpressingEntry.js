@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Trans } from '@lingui/macro';
-import { formatDistanceStrict } from 'date-fns';
 import {
   EventEntry,
   EventIcon,
@@ -11,9 +10,9 @@ import {
   EventDelete,
   EventDetails,
 } from './EventEntry';
-import NursingForm from './NursingForm';
+import ExpressingForm from './ExpressingForm';
 import EventInlineForm from './EventInlineForm';
-import nursingIcon from '../icons/nursing.svg';
+import expressingIcon from '../icons/food.svg';
 import useLocale from '../hooks/useLocale';
 
 const Type = styled.span`
@@ -21,11 +20,10 @@ const Type = styled.span`
   margin-right: 4px;
 `;
 
-function NursingEntry({
-  nextBreast,
+function ExpressingEntry({
   breast,
   date,
-  end,
+  amount,
   onDelete,
   onUpdate,
 }) {
@@ -41,35 +39,22 @@ function NursingEntry({
     onUpdate(values);
   }
 
-  const name = 'Breastfeeding';
-
-  let distance = null;
-
-  try {
-    const from = new Date(end);
-    const to = new Date(date);
-    distance = formatDistanceStrict(from, to, {
-      unit: 'minute',
-      locale: dateLocale,
-    });
-  } catch (err) {}
-
   return (
     <>
       <EventEntry>
-        <EventIcon src={nursingIcon} />
+        <EventIcon src={expressingIcon} />
         <EventContent>
           <EventDetails>
             <Type>
+              {amount}ml <Trans>expressed from </Trans> 
               {breast === 'left' ? 
-                <Trans>Left</Trans>
+                <Trans> Left</Trans>
                : breast === 'right' ? 
-                <Trans>Right</Trans>
+                <Trans> Right</Trans>
                : 
-                <Trans>Both</Trans>
+                <Trans> Both</Trans>
               }
-              <span>&nbsp;</span><Trans>for</Trans> {distance}.<span>&nbsp;</span>
-              <Trans>Next breast: </Trans> {nextBreast}
+              
             </Type>
           </EventDetails>
           <EventDate date={date} />
@@ -80,19 +65,18 @@ function NursingEntry({
       {edit && (
         <EventInlineForm
           onSubmit={handleUpdate}
-          FormContent={NursingForm}
+          FormContent={ExpressingForm}
           initalValues={{
-            end: new Date(end),
-            breast,
-            nextBreast,
             date: new Date(date),
+            amount,
+            breast,
           }}
         />
       )}
     </>
   );
 }
+ 
+ExpressingEntry.propTypes = {};
 
-NursingEntry.propTypes = {};
-
-export default NursingEntry;
+export default ExpressingEntry;

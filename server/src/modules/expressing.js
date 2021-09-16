@@ -5,15 +5,10 @@ export const schema = new Schema(
   {
     babyId: String,
     date: { type: Date, default: Date.now },
-    end: Date,
+    amount: Number,
     breast: {
       type: String,
       enum: ['right', 'left', 'both'],
-      default: 'right',
-    },
-    nextBreast: {
-      type: String,
-      enum: ['right', 'left'],
       default: 'right',
     },
   },
@@ -22,10 +17,10 @@ export const schema = new Schema(
   }
 );
 
-export const Model = model('Nursing', schema);
+export const Model = model('Expressing', schema);
 
 export function handler(socket) {
-  eventHandler(socket, 'nursing', Model);
+  eventHandler(socket, 'expressing', Model);
 }
 export default {
   schema,

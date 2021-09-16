@@ -1,6 +1,7 @@
 import baby from './baby';
 import diaper from './diaper';
 import nursing from './nursing';
+import expressing from './expressing';
 import sleep from './sleep';
 import food from './food';
 import measurement from './measurement';
@@ -152,6 +153,7 @@ export default {
   diaper,
   food,
   nursing,
+  expressing,
   measurement,
   sleep,
 };

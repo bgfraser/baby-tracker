@@ -6,11 +6,13 @@ import useSocket from '../hooks/useSocket';
 import useRouter from '../hooks/useRouter';
 import FoodEntry from '../components/FoodEntry';
 import NursingEntry from '../components/NursingEntry';
+import ExpressingEntry from '../components/ExpressingEntry';
 import SleepEntry from '../components/SleepEntry';
 import DiaperEntry from '../components/DiaperEntry';
 import MeasurementEntry from '../components/MeasurementEntry';
 import diaperIcon from '../icons/diaper.svg';
 import nursingIcon from '../icons/nursing.svg';
+import expressingIcon from '../icons/food.svg';
 import foodIcon from '../icons/food.svg';
 import measurmentIcon from '../icons/measurement.svg';
 import sleepIcon from '../icons/sleep.svg';
@@ -47,6 +49,7 @@ function DashboardPage() {
   const diaperSummary = useSummary('diaper', start, end);
   const foodSummary = useSummary('food', start, end);
   const nursingSummary = useSummary('nursing', start, end);
+  const expressingSummary = useSummary('expressing', start, end);
   const sleepSummary = useSummary('sleep', start, end);
   const measurementSummary = useSummary('measurement', start, end);
   const router = useRouter();
@@ -62,6 +65,10 @@ function DashboardPage() {
   });
   nursingSummary.events.forEach(e => {
     e._type = 'nursing';
+    events.push(e);
+  });
+ expressingSummary.events.forEach(e => {
+    e._type = 'expressing';
     events.push(e);
   });
   sleepSummary.events.forEach(e => {
@@ -109,6 +116,12 @@ function DashboardPage() {
           summary={nursingSummary}
         />
         <Summary
+          name={<Trans>Expressing</Trans>}
+          onClick={() => to('/expressing')}
+          icon={expressingIcon}
+          summary={expressingSummary}
+        />
+        <Summary
           name={<Trans>Sleep</Trans>}
           onClick={() => to('/sleep')}
           icon={sleepIcon}
@@ -138,6 +151,8 @@ function DashboardPage() {
               return <SleepEntry key={e._id} {...e} />;
             case 'nursing':
               return <NursingEntry key={e._id} {...e} />;
+            case 'expressing':
+              return <ExpressingEntry key={e._id} {...e} />;
             case 'measurement':
               return <MeasurementEntry key={e._id} {...e} />;
             default:

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
+import { I18n } from '@lingui/react';
+import { Trans, t } from '@lingui/macro';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {
@@ -7,6 +8,7 @@ import {
   FormContent,
   Label,
   Toggle,
+  Input,
   DatePicker,
 } from './Form';
 import Flex from './Flex';
@@ -19,23 +21,20 @@ const PositionName = styled.span`
   text-align: center;
 `;
 
-function NursingForm({ onChange, values }) {
-  const { date, end, breast, nextBreast } = values;
+function ExpressingForm({ onChange, values }) {
+  const { date, end, breast, amount } = values;
 
   function handleDateChange(date) {
     onChange({ ...values, date });
-  }
-
-  function handleEndChange(end) {
-    onChange({ ...values, end });
   }
 
   function setBreast(breast) {
     onChange({ ...values, breast });
   }
 
-  function setNextBreast(nextBreast) {
-    onChange({ ...values, nextBreast });
+  function handleAmountChange(e) {
+    const amount = e.target.value;
+    onChange({ ...values, amount });
   }
 
   return (
@@ -70,28 +69,7 @@ function NursingForm({ onChange, values }) {
       </FormElement>
       <FormElement>
         <Label>
-          <Trans>Next Breast</Trans>
-        </Label>
-        <Flex wrap="wrap" justifyContent="flex-end" spacing={5}>
-          <Toggle
-            onClick={() => setNextBreast('left')}
-            active={nextBreast === 'left'}
-            type="button"
-          >
-            <Trans>Left</Trans>
-          </Toggle>
-          <Toggle
-            onClick={() => setNextBreast('right')}
-            active={nextBreast === 'right'}
-            type="button"
-          >
-            <Trans>Right</Trans>
-          </Toggle>
-        </Flex>
-      </FormElement>
-      <FormElement>
-        <Label>
-          <Trans>Start</Trans>
+          <Trans>Timestamp</Trans>
         </Label>
         <DatePicker
           showTimeSelect
@@ -107,37 +85,36 @@ function NursingForm({ onChange, values }) {
       </FormElement>
       <FormElement>
         <Label>
-          <Trans>End</Trans>
+          <Trans>Amount in ml</Trans>
         </Label>
-        <DatePicker
-          showTimeSelect
-          timeIntervals={5}
-          timeFormat="HH:mm"
-          timeCaption={<Trans>Time</Trans>}
-          name="end"
-          withPortal
-          selected={end}
-          onChange={handleEndChange}
-          dateFormat="dd.MM.yyyy HH:mm"
-        />
-      </FormElement>
+        <I18n>
+          {({ i18n }) => (
+            <Input
+              type="number"
+              value={amount}
+              name="amount"
+              placeholder={`${i18n._(t`Amount in ml`)}...`}
+              onChange={handleAmountChange}
+            />
+          )}
+        </I18n>
+        </FormElement>
     </FormContent>
   );
 }
 
-NursingForm.propTypes = {
+ExpressingForm.propTypes = {
   onChange: PropTypes.func,
   values: PropTypes.object,
 };
 
-NursingForm.defaultProps = {
+ExpressingForm.defaultProps = {
   onChange: () => {},
   values: {
     date: new Date(),
-    end: new Date(),
-    breast: `both`,
-    nextBreast: null,
+    amount: null,
+    breast: 'both',
   },
 };
 
-export default NursingForm;
+export default ExpressingForm;

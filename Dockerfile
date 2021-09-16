@@ -31,7 +31,7 @@ COPY server/package*.json ./
 
 RUN yarn install
 # If you are building your code for production
-# RUN npm ci --only=production
+RUN npm ci --only=production
 
 # Bundle app source
 COPY --from=server /usr/src/app/build /usr/src/app

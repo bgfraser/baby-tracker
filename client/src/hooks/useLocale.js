@@ -20,11 +20,11 @@ const useLocale = () => {
       dateLocale = da;
       break;
     case 'en-GB':
-      locale = 'enUS';
+      locale = 'enUK';
       dateLocale = enGB;
       break;
     case 'en-CA':
-      locale = 'enUS';
+      locale = 'enUK';
       dateLocale = enCA;
       break;
     case 'fr':
@@ -42,8 +42,8 @@ const useLocale = () => {
       dateLocale = zhCN;
       break;
     default:
-      locale = 'enUS';
-      dateLocale = enUS;
+      locale = 'enUK';
+      dateLocale = enGB;
       break;
   }
 
