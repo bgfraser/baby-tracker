@@ -1,0 +1,15 @@
+envvars:
+  - name: TERRAFORM_ROOT_MODULE
+    desc: Terraform Root Module (Directory) to deploy
+    tags:
+      - terraform
+      - terraform-init
+  - name: GCP_PROJECT_ID
+    desc: GCP project ID for cloudrun service
+  - name: IMAGE_TAG
+    desc: The image tag to be used for gcs-proxy. This is an override input to be removed after cloudbuild trigger is created.
+tags:
+  - name: terraform
+    desc: Required to run Terraform commands
+  - name: terraform-init
+    desc: Required to run Terraform init
